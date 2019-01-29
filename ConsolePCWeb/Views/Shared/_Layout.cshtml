@@ -1,10 +1,204 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link type="text/css" rel="stylesheet" href="/styles/base.css">
+	<script type="text/javascript" src="~/scripts/vue.min.js"></script>
+	<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+	<style type="text/css">
+		.top-bar-container {
+			background-color: #252a2f;
+			height: 50px;
+			width: 100%;
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+
+			.top-bar-container .logo-area {
+				float: left;
+				width: 50px;
+				height: 50px;
+			}
+
+				.top-bar-container .logo-area .logo {
+					display: block;
+					width: 22px;
+					height: 22px;
+					margin: 14px;
+					background-image: url(/images/logo.png);
+					background-position: 50%;
+					background-repeat: no-repeat;
+					background-size: 100%;
+				}
+
+			.top-bar-container .platform-name {
+				height: 50px;
+				line-height: 50px;
+				float: left;
+				padding: 0 10px;
+				color: #fff;
+			}
+
+		.left-bar-container {
+			background-color: #252a2f;
+			width: 50px;
+			height: calc(100vh - 50px);
+			position: fixed;
+			top: 50px;
+			left: 0;
+			transition: width .4s;
+			overflow: hidden;
+			overflow-y: auto;
+		}
+
+			.left-bar-container:hover {
+				width: 220px;
+			}
+
+			.left-bar-container .left-bar-item {
+				color: #FFF;
+				height: 50px;
+				line-height: 50px;
+				width: 220px;
+				position: relative;
+			}
+
+				.left-bar-container .left-bar-item .bar-icon, .left-bar-container .left-bar-item .slide-icon {
+					float: left;
+					width: 50px;
+					height: 50px;
+					text-align: center;
+				}
+
+					.left-bar-container .left-bar-item .bar-icon .icon {
+						color: hsla(0,0%,100%,.65);
+					}
+
+					.left-bar-container .left-bar-item .slide-icon .icon:before {
+						content: "\f105";
+						font-size: 19px;
+					}
+
+			.left-bar-container .left-bar-item-1 .bar-icon .icon:before {
+				content: "\f293";
+				font-size: 17px;
+			}
+
+			.left-bar-container .left-bar-item-2 .bar-icon .icon:before {
+				content: "\f21d";
+				font-size: 18px;
+			}
+
+			.left-bar-container .left-bar-item-2 .bar-icon {
+				line-height: 48px;
+			}
+
+			.left-bar-container .left-bar-item-3 .bar-icon .icon:before {
+				content: "\f0ac";
+				font-size: 18px;
+			}
+
+			.left-bar-container .left-bar-item-3 .bar-icon {
+				line-height: 50px;
+			}
+
+			.left-bar-container .left-bar-item-4 .bar-icon .icon:before {
+				content: "\f108";
+				font-size: 15px;
+			}
+
+			.left-bar-container .left-bar-item-4 .bar-icon {
+				line-height: 51px;
+			}
+
+			.left-bar-container .left-bar-item-5 .bar-icon .icon:before {
+				content: "\f0c2";
+				font-size: 16px;
+			}
+
+			.left-bar-container .left-bar-item-5 .bar-icon {
+				line-height: 50px;
+			}
+
+			.left-bar-container .left-bar-item .name {
+				float: left;
+				width: 120px;
+			}
+
+			.left-bar-container .left-bar-child-list {
+				width: 220px;
+				background-color: yellow;
+				height: calc(100vh - 50px);
+				position: absolute;
+				left: 220px;
+				top: 0;
+			}
+
+			.left-bar-container .left-bar-item:hover {
+				background-color: #192129;
+				cursor: pointer;
+			}
+
+				.left-bar-container .left-bar-item:hover .name {
+					color: #00c1de;
+				}
+
+				.left-bar-container .left-bar-item:hover .icon {
+					color: #FFF;
+				}
+
+		.body-container {
+			width: calc(100vw - 50px);
+			height: calc(100vh - 50px);
+			margin: 50px 0 0 50px;
+			overflow: hidden;
+			overflow-y: auto;
+			background-color: #eaedf1;
+		}
+	</style>
 </head>
 <body>
-    
+	<div class="top-bar-container">
+		<div class="logo-area">
+			<span class="logo"></span>
+		</div>
+		<div class="platform-name">阿里云控制台</div>
+	</div>
+	<div id="leftBarContainer">
+		<div class="left-bar-container">
+			<ul class="left-bar-list">
+				<li class="left-bar-item left-bar-item-1" v-on:click="test1">
+					<span class="bar-icon"><i class="icon"></i></span><span class="name">{{test}}</span><span class="slide-icon"><i class="icon"></i></span>
+					<ul class="left-bar-child-list">
+						<li>子菜单</li>
+					</ul>
+				</li>
+				<li class="left-bar-item left-bar-item-2"><span class="bar-icon"><i class="icon"></i></span><span class="name">云数据库</span><span class="slide-icon"><i class="icon"></i></span></li>
+				<li class="left-bar-item left-bar-item-3"><span class="bar-icon"><i class="icon"></i></span><span class="name">专有网络</span><span class="slide-icon"><i class="icon"></i></span></li>
+				<li class="left-bar-item left-bar-item-4"><span class="bar-icon"><i class="icon"></i></span><span class="name">对象存储</span><span class="slide-icon"><i class="icon"></i></span></li>
+				<li class="left-bar-item left-bar-item-5"><span class="bar-icon"><i class="icon"></i></span><span class="name">负载均衡</span><span class="slide-icon"><i class="icon"></i></span></li>
+			</ul>
+		</div>
+	</div>
+	<div class="body-container">
+		@RenderBody()
+	</div>
+	<script type="text/javascript">
+		var leftBarContainer = new Vue({
+			el: '#leftBarContainer',
+			data: {
+				test:'测试'
+			},
+			methods: {
+				test1: function () {
+					this.changeData();
+					
+				}
+			}
+		});
+
+	</script>
 </body>
 </html>
