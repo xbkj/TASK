@@ -14,6 +14,7 @@
 			position: fixed;
 			top: 0;
 			left: 0;
+			z-index: 50;
 		}
 
 			.top-bar-container .logo-area {
@@ -41,7 +42,7 @@
 				color: #fff;
 			}
 
-		.left-bar-container {
+		.left-bar-container, .left-bar-child-container {
 			background-color: #252a2f;
 			width: 50px;
 			height: calc(100vh - 50px);
@@ -50,19 +51,28 @@
 			left: 0;
 			transition: width .4s;
 			overflow: hidden;
-			overflow-y: auto;
+			z-index: 50;
 		}
 
-			.left-bar-container:hover {
-				width: 220px;
-			}
+		.left-bar-child-container {
+			width: 220px;
+			left: -220px;
+			border-left: 1px solid hsla(0,0%,100%,.1);
+			transition: left .5s;
+			z-index: 49;
+		}
 
-			.left-bar-container .left-bar-item {
-				color: #FFF;
+			.left-bar-container .left-bar-item, .left-bar-child-container .left-bar-item {
 				height: 50px;
 				line-height: 50px;
 				width: 220px;
 				position: relative;
+				color: #FFF;
+				display: block;
+				overflow: hidden;
+				outline: none;
+				cursor: pointer;
+				text-decoration: none;
 			}
 
 				.left-bar-container .left-bar-item .bar-icon, .left-bar-container .left-bar-item .slide-icon {
@@ -81,73 +91,70 @@
 						font-size: 19px;
 					}
 
-			.left-bar-container .left-bar-item-1 .bar-icon .icon:before {
-				content: "\f293";
-				font-size: 17px;
-			}
-
-			.left-bar-container .left-bar-item-2 .bar-icon .icon:before {
-				content: "\f21d";
-				font-size: 18px;
-			}
-
-			.left-bar-container .left-bar-item-2 .bar-icon {
-				line-height: 48px;
-			}
-
-			.left-bar-container .left-bar-item-3 .bar-icon .icon:before {
-				content: "\f0ac";
-				font-size: 18px;
-			}
-
-			.left-bar-container .left-bar-item-3 .bar-icon {
-				line-height: 50px;
-			}
-
-			.left-bar-container .left-bar-item-4 .bar-icon .icon:before {
-				content: "\f108";
-				font-size: 15px;
-			}
-
-			.left-bar-container .left-bar-item-4 .bar-icon {
-				line-height: 51px;
-			}
-
-			.left-bar-container .left-bar-item-5 .bar-icon .icon:before {
-				content: "\f0c2";
-				font-size: 16px;
-			}
-
-			.left-bar-container .left-bar-item-5 .bar-icon {
-				line-height: 50px;
-			}
-
-			.left-bar-container .left-bar-item .name {
-				float: left;
-				width: 120px;
-			}
-
-			.left-bar-container .left-bar-child-list {
-				width: 220px;
-				background-color: yellow;
-				height: calc(100vh - 50px);
-				position: absolute;
-				left: 220px;
-				top: 0;
-			}
-
-			.left-bar-container .left-bar-item:hover {
-				background-color: #192129;
-				cursor: pointer;
-			}
-
-				.left-bar-container .left-bar-item:hover .name {
-					color: #00c1de;
+				.left-bar-container .left-bar-item .bar-icon-1 .icon:before {
+					content: "\f293";
+					font-size: 17px;
 				}
 
-				.left-bar-container .left-bar-item:hover .icon {
-					color: #FFF;
+				.left-bar-container .left-bar-item .bar-icon-2 .icon:before {
+					content: "\f21d";
+					font-size: 18px;
 				}
+
+				.left-bar-container .left-bar-item .bar-icon-2 {
+					line-height: 48px;
+				}
+
+				.left-bar-container .left-bar-item .bar-icon-3 .icon:before {
+					content: "\f0ac";
+					font-size: 18px;
+				}
+
+				.left-bar-container .left-bar-item .bar-icon-3 {
+					line-height: 50px;
+				}
+
+				.left-bar-container .left-bar-item .bar-icon-4 .icon:before {
+					content: "\f108";
+					font-size: 15px;
+				}
+
+				.left-bar-container .left-bar-item .bar-icon-4 {
+					line-height: 51px;
+				}
+
+				.left-bar-container .left-bar-item .bar-icon-5 .icon:before {
+					content: "\f0c2";
+					font-size: 16px;
+				}
+
+				.left-bar-container .left-bar-item .bar-icon-5 {
+					line-height: 50px;
+				}
+
+				.left-bar-container .left-bar-item .name {
+					float: left;
+					width: 120px;
+				}
+
+				.left-bar-child-container .left-bar-item .name {
+					display: block;
+					padding: 0 30px;
+				}
+
+				.left-bar-container .left-bar-item:hover, .left-bar-child-container .left-bar-item:hover {
+					background-color: #192129;
+					cursor: pointer;
+				}
+
+
+					.left-bar-container .left-bar-item:hover .name, .left-bar-child-container .left-bar-item:hover .name {
+						color: #00c1de;
+					}
+
+					.left-bar-container .left-bar-item:hover .icon {
+						color: #FFF;
+					}
 
 		.body-container {
 			width: calc(100vw - 50px);
@@ -167,18 +174,20 @@
 		<div class="platform-name">阿里云控制台</div>
 	</div>
 	<div id="leftBarContainer">
-		<div class="left-bar-container">
-			<ul class="left-bar-list">
-				<li class="left-bar-item left-bar-item-1" v-on:click="test1">
-					<span class="bar-icon"><i class="icon"></i></span><span class="name">{{test}}</span><span class="slide-icon"><i class="icon"></i></span>
-					<ul class="left-bar-child-list">
-						<li>子菜单</li>
-					</ul>
+		<div class="left-bar-container" auto-scroll-h v-on:wheel="AutoScrollH" v-on:mouseenter="MenuContainerEnter(1)" v-on:mouseleave="MenuContainerLeave(1)">
+			<ul>
+				<li v-for="menu in menus">
+					<a class="left-bar-item" v-bind:href="menu.url==null?null:menu.url" v-on:mouseenter="MenuItemEnter(menu)" v-on:mouseleave="MenuItemLeave(menu)">
+						<span v-bind:class="'bar-icon bar-icon-'+menu.iconIndex"><i class="icon"></i></span><span class="name">{{menu.name}}</span><span class="slide-icon" v-if="menu.childMenus!=null&&menu.childMenus.length>0"><i class="icon"></i></span>
+					</a>
 				</li>
-				<li class="left-bar-item left-bar-item-2"><span class="bar-icon"><i class="icon"></i></span><span class="name">云数据库</span><span class="slide-icon"><i class="icon"></i></span></li>
-				<li class="left-bar-item left-bar-item-3"><span class="bar-icon"><i class="icon"></i></span><span class="name">专有网络</span><span class="slide-icon"><i class="icon"></i></span></li>
-				<li class="left-bar-item left-bar-item-4"><span class="bar-icon"><i class="icon"></i></span><span class="name">对象存储</span><span class="slide-icon"><i class="icon"></i></span></li>
-				<li class="left-bar-item left-bar-item-5"><span class="bar-icon"><i class="icon"></i></span><span class="name">负载均衡</span><span class="slide-icon"><i class="icon"></i></span></li>
+			</ul>
+		</div>
+		<div class="left-bar-child-container" auto-scroll-h v-on:wheel="AutoScrollH" v-on:mouseenter="MenuContainerEnter(2)" v-on:mouseleave="MenuContainerLeave(2)">
+			<ul>
+				<li v-for="childMenu in childMenus">
+					<a class="left-bar-item" v-bind:href="childMenu.url==null?null:childMenu.url"><span class="name">{{childMenu.name}}</span></a>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -186,15 +195,352 @@
 		@RenderBody()
 	</div>
 	<script type="text/javascript">
+		Vue.prototype.AutoScrollH = function (e) {		
+			var target = null;
+			var tempNode = e.target;
+			while (true) {
+				if (tempNode.getAttribute('auto-scroll-h') != null) {
+					target = tempNode;
+					break;
+				}
+				if (tempNode.parentNode == null) {
+					break;
+				}
+				tempNode = tempNode.parentNode;
+			}
+
+			var wheel = e.deltaY;
+			if (wheel > 0) {
+				target.scrollTo(target.scrollLeft, target.scrollTop + 30);
+			}
+			else {
+				target.scrollTo(target.scrollLeft, target.scrollTop - 30);
+			}
+
+			
+			//for (var p in e.path) {
+			//    console.log(e.path[p]);
+			//    if (e.path[p].getAttribute('auto-scroll-h') != null) {
+			//        target = e.path[p];
+			//    }
+			//}
+
+			//if (target != null) {
+
+			//    console.log(target.offsetHeight);
+			//}
+
+			////获取需要滚动条的容器
+			//var autoScrollContainer = $('*[auto-scroll]');
+			//for (var i = 0; i < autoScrollContainer.length; i++) {
+			//    $(autoScrollContainer[i]).bind('mousewheel DOMMouseScroll', function (e) {
+			//        var that = $(this);
+			//        e.preventDefault();
+			//        var wheel = e.originalEvent.wheelDelta || -e.originalEvent.detail;
+			//        var delta = Math.max(-1, Math.min(1, wheel));
+			//        var scrollTo = that.scrollTop() - parseInt(delta) * 30;
+			//        that.scrollTop(scrollTo);
+			//    });
+			//}
+
+		};
+
 		var leftBarContainer = new Vue({
 			el: '#leftBarContainer',
 			data: {
-				test:'测试'
+				menus: [{
+					name: '云服务器ECS',
+					iconIndex: '1',
+					url: 'https://www.baidu.com'
+				}, {
+					name: '云数据库',
+					iconIndex: '2',
+					childMenus: [{
+						name: '云数据库子菜单',
+						url: 'https://www.baidu.com'
+					}, {
+						name: '成员列表',
+						url: 'https://www.baidu.com'
+					}, {
+						name: '操作列表',
+						url: 'https://www.baidu.com'
+					}, {
+						name: '审核列表',
+						url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '成员列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '操作列表',
+							url: 'https://www.baidu.com'
+						}, {
+							name: '审核列表',
+							url: 'https://www.baidu.com'
+						}]
+				}, {
+					name: '专有网络',
+					iconIndex: '3',
+					childMenus: [{
+						name: '专有网络子菜单',
+						url: 'https://www.baidu.com'
+					}]
+				}, {
+					name: '对象存储',
+					iconIndex: '4',
+					childMenus: [{
+						name: '对象存储子菜单',
+						url: 'https://www.baidu.com'
+					}]
+				}, {
+					name: '负载均衡',
+					iconIndex: '5',
+					childMenus: [{
+						name: '负载均衡子菜单',
+						url: 'https://www.baidu.com'
+					}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}, {
+						name: '负载均衡',
+						iconIndex: '5',
+						childMenus: [{
+							name: '负载均衡子菜单',
+							url: 'https://www.baidu.com'
+						}]
+					}],
+				childMenus: []
 			},
 			methods: {
-				test1: function () {
-					this.changeData();
-					
+				MenuContainerEnter: function (e) {
+					var menuContainer = document.querySelector('.left-bar-container');
+					var menuChildContainer = document.querySelector('.left-bar-child-container');
+
+					if (e == 1) {
+						menuContainer.style.width = '220px';
+					}
+					else if (e == 2) {
+						menuContainer.style.width = '220px';
+						menuChildContainer.style.left = '220px';
+					}
+				},
+				MenuContainerLeave: function (e) {
+					var menuContainer = document.querySelector('.left-bar-container');
+					var menuChildContainer = document.querySelector('.left-bar-child-container');
+
+					if (e == 1) {
+						menuContainer.style.width = '50px';
+					}
+					else if (e == 2) {
+						menuContainer.style.width = '50px';
+						menuChildContainer.style.left = '-220px';
+					}
+				},
+				MenuItemEnter: function (menu) {
+					var menuChildContainer = document.querySelector('.left-bar-child-container');
+
+					if (menu.childMenus != null && menu.childMenus.length > 0) {
+						menuChildContainer.style.left = '220px';
+						this.$data.childMenus = menu.childMenus;
+					}
+				},
+				MenuItemLeave: function (menu) {
+					var menuChildContainer = document.querySelector('.left-bar-child-container');
+					menuChildContainer.style.left = '-220px';
 				}
 			}
 		});
